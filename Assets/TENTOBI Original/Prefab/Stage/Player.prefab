@@ -111,11 +111,10 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2561eff1a8ae5d14ca0fb46cad078bf2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  power: 20
-  gravity: 0.25
-  forceThreshold: 0.05
-  drag: 0.15
+  m_EditorClassIdentifier: Assembly-CSharp::GravityController
+  power: 35
+  gravity: 0.35
+  drag: 0.1
   angle: 0
   angularVelocity: 0
   velocity: {x: 0, y: 0}

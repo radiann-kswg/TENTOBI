@@ -3,6 +3,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+//using System.Numerics;
 using UnityEngine;
 
 public class GravityController : MonoBehaviour
@@ -23,22 +24,17 @@ public class GravityController : MonoBehaviour
 	/// 重力計算のための定数
 	/// power:全体強度
 	/// </summary>
-	public float power = 20.0f;
+	public float power = 35.0f;
 	/// <summary>
 	/// 重力計算のための定数
 	/// gravity:重力係数
 	/// </summary>
-	public float gravity = 0.25f;
-	/// <summary>
-	/// 重力計算のための定数
-	/// forceThrethold:力の閾値
-	/// </summary>
-	public float forceThreshold = 0.05f;
+	public float gravity = 0.35f;
 	/// <summary>
 	/// 重力計算のための定数
 	/// drag:摩擦係数
 	/// </summary>
-	public float drag = 0.15f;
+	public float drag = 0.10f;
 
 	[Header("angle:角度位置(ポーズ直前), angularVelocity:角速度(ポーズ直前)")]
 	/// <summary>
@@ -119,27 +115,20 @@ public class GravityController : MonoBehaviour
 	/// <returns>最終的に印加する力</returns>
 	private Vector2 CalcurateForceAndAngle()
 	{
-		Vector2 dir = Vector2.zero;
+		Vector3 acc = Input.acceleration;
+		// 正規化
+		acc.Normalize();
 
 		// ターゲット端末の縦横の表示に合わせてremapする
-		dir.x = Input.acceleration.x;
-		dir.y = Input.acceleration.y;
-
-		// 加速度が操作するには十分に大きい場合は重力方向を再計算、それ以外は重力方向を下向きに
-		if (dir.sqrMagnitude > forceThreshold)
-		{
-			// 正規化
-			dir.Normalize();
-			// 加速度方向と下向きの座標単位ベクトルとの角変位を出して重力方向を再計算
-			angle = Mathf.Deg2Rad * Vector2.SignedAngle(new Vector2(0.0f, -1.0f), dir);
-		}
-		else angle = 0.0f;
+		Vector2 dir = new Vector2(acc.x, acc.y);
+		// 加速度方向と下向きの座標単位ベクトルとの角変位を出して重力方向を計算
+		angle = Mathf.Deg2Rad * Vector2.SignedAngle(new Vector2(0.0f, -1.0f), dir.normalized);
 
 		// 重力ベクトルを算出
-		Vector2 addGravity = new Vector2(Mathf.Sin(angle), -Mathf.Cos(angle)).normalized * gravity;
+		Vector2 addGravity = dir * gravity;
 		// 重力ベクトルに垂直な単位ベクトルと速度の単位ベクトルから抵抗ベクトルを算出
-		Vector2 addDrag = new Vector2(-Mathf.Cos(angle), Mathf.Sin(angle)).normalized;
-		float dot = Vector2.Dot(addDrag, rigitbody.linearVelocity.normalized); // 内積で印加方向と印加率を計算
+		Vector2 addDrag = new Vector2(-dir.y, dir.x).normalized; // dirに直交するベクトル
+		float dot = Vector2.Dot(addDrag, rigitbody.linearVelocity); // 内積で印加方向と印加率を計算
 		addDrag *= dot * drag;
 		// 重力と抵抗を合算（この際ベクトルdirは印加用変数として再利用）
 		dir = addGravity - addDrag;
