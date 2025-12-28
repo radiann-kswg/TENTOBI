@@ -624,6 +624,15 @@ public class UIDirector : MonoBehaviour
 	}
 
 	/// <summary>
+	/// キャリブレーションボタンが押された時の処理です
+	/// </summary>
+	public void OnPressCalibrationButton(bool init = false)
+	{
+		Debug.Log("重力方向補正を受け付けました");
+		gravityController.CalibrationGravity(init);
+	}
+
+	/// <summary>
 	/// リトライボタンが押された時の処理です
 	/// </summary>
 	public void OnPressRetryButton()
