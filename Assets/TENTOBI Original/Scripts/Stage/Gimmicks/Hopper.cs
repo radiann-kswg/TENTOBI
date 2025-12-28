@@ -28,7 +28,7 @@ public class Hopper : MonoBehaviour
     void Start()
     {
         game = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameDirector>();
-        zAngle = this.gameObject.transform.rotation.eulerAngles.z;
+        // Startでの角度取得は削除（ここで取ると初期角度で固定されてしまうため）
     }
 
     // Update is called once per frame
@@ -45,10 +45,11 @@ public class Hopper : MonoBehaviour
 
             Rigidbody2D rigitbody = collision.GetComponent<Rigidbody2D>();
 
-            // 反発力の印加（反発力(Vector2)はCalcurateForceAndAngle関数で計算される）
+            // 反発力の印加（関数内で現在の角度に基づいて計算）
             rigitbody.AddForce(CalcurateForceAndAngle(), ForceMode2D.Impulse);
 
-            Debug.Log("ホッパーで加速(Z回転角:"+zAngle.ToString() +"度, 付与した力:+" + addPower.ToString() + ")しました");
+            // ログ出力（CalcurateForceAndAngle内でzAngleが更新されているので、正しい角度が表示されます）
+            Debug.Log("ホッパーで加速(Z回転角:" + zAngle.ToString() + "度, 付与した力:+" + addPower.ToString() + ")しました");
         }
     }
 
@@ -59,6 +60,10 @@ public class Hopper : MonoBehaviour
     /// <returns>印加される反発力</returns>
     private Vector2 CalcurateForceAndAngle()
     {
+        // 【修正点】ここで現在のリアルタイムな角度を取得します
+        // transform.eulerAnglesはワールド空間の回転角度なので、親が回っていても正しい角度が取れます
+        zAngle = this.transform.eulerAngles.z;
+
         return addPower * new Vector2(-Mathf.Sin(Mathf.Deg2Rad * zAngle), Mathf.Cos(Mathf.Deg2Rad * zAngle));
     }
     #endregion
