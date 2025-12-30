@@ -310,6 +310,13 @@ public class GameDirector : MonoBehaviour
 		clearTime = 0.0f;
 	}
 
+	public string ReturnClearTime()
+	{
+		int min = Mathf.FloorToInt(clearTime / 60.0f);
+		float sec = Mathf.Repeat(clearTime, 60.0f);
+		return min.ToString("D2") + ":" + sec.ToString("D2");
+	}
+
 	/// <summary>
 	/// ボーナススコアを加算します
 	/// </summary>
