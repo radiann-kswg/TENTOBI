@@ -54,4 +54,7 @@ MonoBehaviour:
   - isTutrial: 0
     stageNum: 2
     stageImage: {fileID: 0}
+  - isTutrial: 0
+    stageNum: 3
+    stageImage: {fileID: 0}
   page: 0
