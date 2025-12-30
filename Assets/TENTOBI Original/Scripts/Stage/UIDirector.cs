@@ -396,7 +396,7 @@ public class UIDirector : MonoBehaviour
 
 	private void UpdateTimeText()
 	{
-		timeText.text = game.ReturnClearTime();
+		timeText.text = timeString + game.ReturnClearTime();
 	}
 
 	/// <summary>

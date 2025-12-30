@@ -312,8 +312,9 @@ public class GameDirector : MonoBehaviour
 
 	public string ReturnClearTime()
 	{
-		int min = Mathf.FloorToInt(clearTime / 60.0f);
-		float sec = Mathf.Repeat(clearTime, 60.0f);
+		int ct = Mathf.FloorToInt(clearTime);
+		int min = ct / 60;
+		int sec = ct % 60;
 		return min.ToString("D2") + ":" + sec.ToString("D2");
 	}
 
