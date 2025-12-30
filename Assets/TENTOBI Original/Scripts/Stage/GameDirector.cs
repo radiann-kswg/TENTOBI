@@ -407,8 +407,14 @@ public class GameDirector : MonoBehaviour
 		// ステージ進捗を更新した場合
 		if (stageNumProgress.stageNum <= stageNum)
 		{
+			int stageLength = MainMenuDirector.main.stageViewList.Length;
 			// ステージ進捗を更新
-			SaveLoadFile.instance.savedata.stageProgressNum += 1;
+			if (progress < stageLength)
+				SaveLoadFile.instance.savedata.stageProgressNum += 1;
+			else
+			{
+				SaveLoadFile.instance.savedata.stageProgressNum = stageLength;
+			}
 			// ハイスコアを更新（チュートリアルでない場合）
 			if (!isTutorial)
 			{
