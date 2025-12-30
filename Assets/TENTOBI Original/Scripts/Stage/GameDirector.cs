@@ -2,6 +2,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -102,6 +103,16 @@ public class GameDirector : MonoBehaviour
 	/// 継続ダメージの強度[単位:%毎秒]
 	/// </summary>
 	public float DamageLv = 8.0f;
+	[Header("ボーナススコア(残機)[1機ごと]")]
+	/// <summary>
+	/// ボーナススコア(残機)[1機ごと]
+	/// </summary>
+	public int BonusScorePerLife = 10;
+	[Header("クリア目標タイム[単位:秒]")]
+	/// <summary>
+	/// クリア目標タイム[単位:秒]
+	/// </summary>
+	public float CleartimeNorma = 240.0f;
 	#endregion
 
 	#region private変数定義 2
@@ -144,6 +155,11 @@ public class GameDirector : MonoBehaviour
 	/// </summary>
 	private float t;
 	/// <summary>
+	/// クリアタイム（ステージ開始〜クリアまでの経過時間）
+	/// ポーズ/メッセージ/操作中など、ゲーム進行が停止している間は加算しません
+	/// </summary>
+	private float clearTime;
+	/// <summary>
 	/// 点滅周期
 	/// </summary>
 	private const float flashT = 0.6f;
@@ -167,6 +183,7 @@ public class GameDirector : MonoBehaviour
 		isControlling = false;
 		wentNextScene = false;
 		t = 0.0f;
+		clearTime = 0.0f;
 	}
 
 	// Update is called once per frame
@@ -174,6 +191,12 @@ public class GameDirector : MonoBehaviour
 	{
 		if (!wentNextScene)
 		{
+			// クリアタイム計測（プレイ進行が止まる状況では加算しない）
+			if (isRunningCleartimer())
+			{
+				clearTime += Time.deltaTime;
+			}
+
 			// チュートリアルモードで進捗(スコア)が100[%]に到達したらゲームクリア処理へ
 			if (isTutorial && scoreInStage >= 100)
 			{
@@ -284,6 +307,30 @@ public class GameDirector : MonoBehaviour
 		life = life_max;
 		HP = HP_max;
 		CP = CP_max * 0.5f;
+		clearTime = 0.0f;
+	}
+
+	public string ReturnClearTime()
+	{
+		int ct = Mathf.FloorToInt(clearTime);
+		int min = ct / 60;
+		int sec = ct % 60;
+		return min.ToString("D2") + ":" + sec.ToString("D2");
+	}
+
+	/// <summary>
+	/// ボーナススコアを加算します
+	/// </summary>
+	private void AddBonusScore()
+	{
+		// クリアタイム
+		if (clearTime < CleartimeNorma)
+		{
+			int bonus = Mathf.FloorToInt(CleartimeNorma - clearTime);
+			if (bonus > 0) scoreInStage += bonus;
+		}
+		// 残機
+		scoreInStage += life > 1 ? (life - 1) * BonusScorePerLife : 0;
 	}
 
 	/// <summary>
@@ -310,6 +357,7 @@ public class GameDirector : MonoBehaviour
 	public void SwitchToGameClear()
 	{
 		isGameClear = true;
+		AddBonusScore();
 		UpdateStageProgress(); // ステージ進捗に進展があれば更新
 							   //if (!isTutorial && stageNum > 0) UpdateScoreParStage();
 	}
@@ -359,8 +407,14 @@ public class GameDirector : MonoBehaviour
 		// ステージ進捗を更新した場合
 		if (stageNumProgress.stageNum <= stageNum)
 		{
+			int stageLength = MainMenuDirector.main.stageViewList.Length;
 			// ステージ進捗を更新
-			SaveLoadFile.instance.savedata.stageProgressNum += 1;
+			if (progress < stageLength)
+				SaveLoadFile.instance.savedata.stageProgressNum += 1;
+			else
+			{
+				SaveLoadFile.instance.savedata.stageProgressNum = stageLength;
+			}
 			// ハイスコアを更新（チュートリアルでない場合）
 			if (!isTutorial)
 			{
@@ -415,6 +469,19 @@ public class GameDirector : MonoBehaviour
 	public bool IsPausing()
 	{
 		return isPausing;
+	}
+
+
+	/// <summary>
+	/// クリアタイムを計測すべきかどうかを返します
+	/// </summary>
+	/// <returns>クリアタイム計測すべきかどうか</returns>
+	private bool isRunningCleartimer()
+	{
+		return !isGameClear && transition.IsFadeInComplete()
+				&& !isGameOver && !isAnimating
+				&& !isMessaging && !isMessageContinued
+				&& !isPausing && !isControlling;
 	}
 
 	/// <summary>

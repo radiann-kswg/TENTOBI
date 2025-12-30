@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using System.Runtime.CompilerServices;
 
 public class UIDirector : MonoBehaviour
 {
@@ -47,6 +48,12 @@ public class UIDirector : MonoBehaviour
 	/// スコアを表示するためのTextコンポーネントです
 	/// </summary>
 	public TextMeshProUGUI scoreText;
+
+	[Header("タイム表示用のText")]
+	/// <summary>
+	/// 計測タイムを表示するためのTextコンポーネントです
+	/// </summary>
+	public TextMeshProUGUI timeText;
 
 	[Header("ライフ表示用のText")]
 	/// <summary>
@@ -162,12 +169,17 @@ public class UIDirector : MonoBehaviour
 	/// <summary>
 	/// ステージ名
 	/// </summary>
-	private string stageString = "Satge : ";
+	private string stageString = "Stage : ";
 
 	/// <summary>
 	/// スコア表示用文字列
 	/// </summary>
 	private string scoreString = "Score : ";
+
+	/// <summary>
+	/// タイム表示用文字列
+	/// </summary>
+	private string timeString = "Time : ";
 
 	/// <summary>
 	/// ライフ(残機)表示用文字列
@@ -382,6 +394,11 @@ public class UIDirector : MonoBehaviour
 		else scoreText.text = scoreString + game.scoreInStage.ToString("D4");
 	}
 
+	private void UpdateTimeText()
+	{
+		timeText.text = timeString + game.ReturnClearTime();
+	}
+
 	/// <summary>
 	/// ライフ(残機)表示を初期化します
 	/// </summary>
@@ -463,6 +480,9 @@ public class UIDirector : MonoBehaviour
 		InitializeCPBar();
 		InitializeGameEndUIs();
 
+		// チュートリアル中である場合はクリアタイムを表示しない
+		if (game.isTutorial) timeText.text = "";
+
 		isAnimating = false; isWaitingInput = false;
 		t = 0.0f;
 	}
@@ -473,6 +493,7 @@ public class UIDirector : MonoBehaviour
 	private void UpdateUIs()
 	{
 		UpdateScoreText();
+		if (!game.isTutorial) UpdateTimeText();
 		UpdateLifeText();
 		UpdateHPBar();
 		UpdateCPBar();
