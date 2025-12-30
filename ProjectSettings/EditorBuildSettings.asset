@@ -17,4 +17,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/TENTOBI Original/Scenes/Stages/Stage1.unity
     guid: fd068958fa96d9d4c96b01280f2c3bc5
+  - enabled: 1
+    path: Assets/TENTOBI Original/Scenes/Stages/Stage2.unity
+    guid: d723c1d58df0f4d5c8f4b29d8f3b5e93
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0
