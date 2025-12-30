@@ -2,6 +2,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -102,6 +103,16 @@ public class GameDirector : MonoBehaviour
 	/// 継続ダメージの強度[単位:%毎秒]
 	/// </summary>
 	public float DamageLv = 8.0f;
+	[Header("ボーナススコア(残機)[1機ごと]")]
+	/// <summary>
+	/// ボーナススコア(残機)[1機ごと]
+	/// </summary>
+	public int BonusScorePerLife = 10;
+	[Header("クリア目標タイム[単位:秒]")]
+	/// <summary>
+	/// クリア目標タイム[単位:秒]
+	/// </summary>
+	public float CleartimeNorma = 60.0f;
 	#endregion
 
 	#region private変数定義 2
@@ -287,6 +298,15 @@ public class GameDirector : MonoBehaviour
 	}
 
 	/// <summary>
+	/// ボーナススコアを加算します
+	/// </summary>
+	private void AddBonusScore()
+	{
+		// 残機
+		scoreInStage += life > 1 ? (life - 1) * BonusScorePerLife : 0;
+	}
+
+	/// <summary>
 	/// 即死処理をします
 	/// </summary>
 	public void DeathPlayerAtKilled()
@@ -310,6 +330,7 @@ public class GameDirector : MonoBehaviour
 	public void SwitchToGameClear()
 	{
 		isGameClear = true;
+		AddBonusScore();
 		UpdateStageProgress(); // ステージ進捗に進展があれば更新
 							   //if (!isTutorial && stageNum > 0) UpdateScoreParStage();
 	}
