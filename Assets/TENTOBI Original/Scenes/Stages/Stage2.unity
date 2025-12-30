@@ -1510,7 +1510,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.881308, y: 2.9999995, z: -10}
+  m_LocalPosition: {x: 9.070459, y: 2.9999995, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21661,7 +21661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1b2141db7f0d244b8e5550acdce9233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageNum: 1
+  stageNum: 2
   scoreInStage: 0
   respownNum: 0
   life: 0
@@ -21673,6 +21673,8 @@ MonoBehaviour:
   HP_max: 1
   CP_max: 100
   DamageLv: 8
+  BonusScorePerLife: 10
+  CleartimeNorma: 240
 --- !u!4 &1065930883
 Transform:
   m_ObjectHideFlags: 0
