@@ -245,7 +245,7 @@ MonoBehaviour:
   virtualKeyboard: {fileID: 373497944}
   messageText: {fileID: 533494831}
   usingUis: {fileID: 2074013291}
-  isSkippedSelection: 0
+  isSkippedSelection: 1
   defaultPlayerName: ABURI_C
   deactivateObjectsToSkippingSelection:
   - {fileID: 848338209}
