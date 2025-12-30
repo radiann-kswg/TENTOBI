@@ -112,7 +112,7 @@ public class GameDirector : MonoBehaviour
 	/// <summary>
 	/// クリア目標タイム[単位:秒]
 	/// </summary>
-	public float CleartimeNorma = 60.0f;
+	public float CleartimeNorma = 240.0f;
 	#endregion
 
 	#region private変数定義 2
@@ -155,6 +155,11 @@ public class GameDirector : MonoBehaviour
 	/// </summary>
 	private float t;
 	/// <summary>
+	/// クリアタイム（ステージ開始〜クリアまでの経過時間）
+	/// ポーズ/メッセージ/操作中など、ゲーム進行が停止している間は加算しません
+	/// </summary>
+	private float clearTime;
+	/// <summary>
 	/// 点滅周期
 	/// </summary>
 	private const float flashT = 0.6f;
@@ -178,6 +183,7 @@ public class GameDirector : MonoBehaviour
 		isControlling = false;
 		wentNextScene = false;
 		t = 0.0f;
+		clearTime = 0.0f;
 	}
 
 	// Update is called once per frame
@@ -185,6 +191,12 @@ public class GameDirector : MonoBehaviour
 	{
 		if (!wentNextScene)
 		{
+			// クリアタイム計測（プレイ進行が止まる状況では加算しない）
+			if (isRunningCleartimer())
+			{
+				clearTime += Time.deltaTime;
+			}
+
 			// チュートリアルモードで進捗(スコア)が100[%]に到達したらゲームクリア処理へ
 			if (isTutorial && scoreInStage >= 100)
 			{
@@ -295,6 +307,7 @@ public class GameDirector : MonoBehaviour
 		life = life_max;
 		HP = HP_max;
 		CP = CP_max * 0.5f;
+		clearTime = 0.0f;
 	}
 
 	/// <summary>
@@ -302,6 +315,12 @@ public class GameDirector : MonoBehaviour
 	/// </summary>
 	private void AddBonusScore()
 	{
+		// クリアタイム
+		if (clearTime < CleartimeNorma)
+		{
+			int bonus = Mathf.FloorToInt(CleartimeNorma - clearTime);
+			if (bonus > 0) scoreInStage += bonus;
+		}
 		// 残機
 		scoreInStage += life > 1 ? (life - 1) * BonusScorePerLife : 0;
 	}
@@ -436,6 +455,19 @@ public class GameDirector : MonoBehaviour
 	public bool IsPausing()
 	{
 		return isPausing;
+	}
+
+
+	/// <summary>
+	/// クリアタイムを計測すべきかどうかを返します
+	/// </summary>
+	/// <returns>クリアタイム計測すべきかどうか</returns>
+	private bool isRunningCleartimer()
+	{
+		return !isGameClear && transition.IsFadeInComplete()
+				&& !isGameOver && !isAnimating
+				&& !isMessaging && !isMessageContinued
+				&& !isPausing && !isControlling;
 	}
 
 	/// <summary>
