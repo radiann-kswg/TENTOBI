@@ -7,7 +7,6 @@ using UnityEngine.UI;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System;
-using System.Numerics;
 
 public class SaveLoadFile : MonoBehaviour
 {
@@ -101,7 +100,7 @@ public class SaveLoadFile : MonoBehaviour
 		/// <summary>
 		/// 重力方向補正のための姿勢ベクトル
 		/// </summary>
-		private Quaternion zAxis;
+		public Quaternion zAxis;
 	}
 
 	/// <summary>

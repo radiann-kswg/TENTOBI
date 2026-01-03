@@ -155,7 +155,7 @@ public class GravityController : MonoBehaviour
 	/// <summary>
 	/// 重力方向補正を適応します
 	/// </summary>
-	private void CalibrationGravity(bool init)
+	public void CalibrationGravity(bool init)
 	{
 		if (!init)
 		{
