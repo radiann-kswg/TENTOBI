@@ -53,6 +53,12 @@ public class GravityController : MonoBehaviour
 	/// 位置計算のための速度ベクトル
 	/// </summary>
 	public Vector2 velocity;
+
+	[Header("zAxis:重力方向補正のための姿勢ベクトル(セーブデータにて管理)")]
+	/// <summary>
+	/// 重力方向補正のための姿勢ベクトル
+	/// </summary>
+	public Quaternion zAxis;
 	#endregion
 
 	#region private変数定義 2
@@ -67,7 +73,8 @@ public class GravityController : MonoBehaviour
 	{
 		game = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameDirector>();
 		rigitbody = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
-		angle = angularVelocity = 0.0f; velocity = Vector2.zero;
+		InitGravity();
+		CalibrationGravity(true);
 
 		isPausing = false;
 	}
@@ -110,6 +117,15 @@ public class GravityController : MonoBehaviour
 
 	#region 重力計算
 	/// <summary>
+	/// 重力を初期化します
+	/// </summary>
+	private void InitGravity()
+	{
+		angle = angularVelocity = 0.0f;
+		velocity = Vector2.zero;
+	}
+
+	/// <summary>
 	/// 重力方向を更新し、重力と抵抗の計算結果から最終的に印加する力を返します
 	/// </summary>
 	/// <returns>最終的に印加する力</returns>
@@ -133,7 +149,19 @@ public class GravityController : MonoBehaviour
 		// 重力と抵抗を合算（この際ベクトルdirは印加用変数として再利用）
 		dir = addGravity - addDrag;
 
-		return dir * power;
+		return zAxis * (dir * power);
+	}
+
+	/// <summary>
+	/// 重力方向補正を適応します
+	/// </summary>
+	private void CalibrationGravity(bool init)
+	{
+		if (!init)
+		{
+			SaveLoadFile.instance.UpdateGravityZAxis(Input.acceleration);
+		}
+		zAxis = SaveLoadFile.instance.savedata.zAxis;
 	}
 	#endregion
 
@@ -158,7 +186,7 @@ public class GravityController : MonoBehaviour
 #if UNITY_EDITOR
 		bool ret = UnityEditor.EditorApplication.isRemoteConnected;
 #else
-        bool ret = isAndroid || isIOS;
+		bool ret = isAndroid || isIOS;
 #endif
 		return ret;
 	}
