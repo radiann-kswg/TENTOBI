@@ -246,7 +246,7 @@ MonoBehaviour:
   messageText: {fileID: 533494831}
   usingUis: {fileID: 2074013291}
   isSkippedSelection: 1
-  defaultPlayerName: ABURI_C
+  defaultPlayerName: _GRAVCAL001
   deactivateObjectsToSkippingSelection:
   - {fileID: 848338209}
 --- !u!1 &98931714
