@@ -167,7 +167,7 @@ PlayerSettings:
   androidMinAspectRatio: 1
   applicationIdentifier:
     Android: com.Gravity.TENTOBI
-    iPhone: com.AburiKarubi.TENTOBI
+    iPhone: com.Gravity.TENTOBI
   buildNumber:
     Standalone: 0
     VisionOS: 0
