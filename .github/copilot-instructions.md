@@ -259,7 +259,6 @@
 - 新しい外部パッケージ/アセットを勝手に導入しない。
 - `Assets/Plugins` や `Assets/Standard Assets` を理由なく編集しない。
 - セーブデータの形式（BinaryFormatter）や保存先（`Application.dataPath`）を、互換性検討なしに変更しない。
-- `Assets/TENTOBI Original/_yuufoor/` のシーン/アセットを `_RadianN/` の確認なしに正として扱わない（同名リソースは `_RadianN/` 側を優先）。
 - 綴り揺れ識別子（`Respown*`, `rigitbody`, `Calcurate*`, `Satge`, `isTutrial` 等）を、ユーザー確認なしに一括リネームしない。
 - `MonoBehaviour` のライフサイクル外（`Awake`/`Start` より前）でコンポーネント参照を取得しない。
 - `Update` 内で毎フレーム `GetComponent<T>()` や `FindGameObjectWithTag()` を呼び出さない（必ず `Start` でキャッシュする）。
