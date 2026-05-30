@@ -1,4 +1,4 @@
-%YAML 1.1
+﻿%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!29 &1
 OcclusionCullingSettings:
@@ -5657,7 +5657,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageNum: 1
   scoreInStage: 0
-  respownNum: 0
+  respawnNum: 0
   life: 0
   HP: 0
   CP: 0

@@ -86,7 +86,7 @@ public class StageButtonDirector : MonoBehaviour
 
 			// シーン名を計算
 			string sceneName;
-			if (thisStage.isTutrial) sceneName = "Tutorial" + thisStage.stageNum.ToString();
+			if (thisStage.isTutorial) sceneName = "Tutorial" + thisStage.stageNum.ToString();
 			else sceneName = "Stage" + thisStage.stageNum.ToString();
 			nextSceneName = sceneName;
 
@@ -114,7 +114,7 @@ public class StageButtonDirector : MonoBehaviour
 			var thisStage = MainMenuDirector.main.stageViewList[thisStageViewID];
 
 			// ステージ名を反映
-			if (!thisStage.isTutrial)
+			if (!thisStage.isTutorial)
 			{
 				stageNameText.text = "Stage " + thisStage.stageNum.ToString("D2");
 				if (thisStageViewID == SaveLoadFile.instance.savedata.stageProgressNum) // 未攻略（=ステージ攻略範囲内1面先）の場合

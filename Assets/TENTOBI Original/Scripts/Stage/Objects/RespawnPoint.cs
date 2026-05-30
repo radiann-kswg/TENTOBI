@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RespownPoint : MonoBehaviour
+public class RespawnPoint : MonoBehaviour
 {
     #region private変数定義
     /// <summary>
@@ -30,7 +30,7 @@ public class RespownPoint : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (pointIndex != game.respownNum) anim.SetBool("isAccessed", false);
+        if (pointIndex != game.respawnNum) anim.SetBool("isAccessed", false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -40,7 +40,7 @@ public class RespownPoint : MonoBehaviour
             //＊何らかのアニメーション
             
             Debug.Log("リスポーン地点(" + pointIndex.ToString() + ")に到達しました");
-            game.respownNum = pointIndex;
+            game.respawnNum = pointIndex;
             anim.SetBool("isAccessed", true);
         }
     }

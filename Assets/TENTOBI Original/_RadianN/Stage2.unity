@@ -1,4 +1,4 @@
-%YAML 1.1
+﻿%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!29 &1
 OcclusionCullingSettings:
@@ -334,7 +334,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
         type: 3}
-      propertyPath: clockwize
+      propertyPath: clockwise
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
@@ -755,7 +755,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
         type: 3}
-      propertyPath: clockwize
+      propertyPath: clockwise
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
@@ -1002,7 +1002,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
         type: 3}
-      propertyPath: clockwize
+      propertyPath: clockwise
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
@@ -1453,7 +1453,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
         type: 3}
-      propertyPath: clockwize
+      propertyPath: clockwise
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
@@ -1604,7 +1604,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
         type: 3}
-      propertyPath: clockwize
+      propertyPath: clockwise
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
@@ -1857,7 +1857,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
         type: 3}
-      propertyPath: clockwize
+      propertyPath: clockwise
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
@@ -2668,7 +2668,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
         type: 3}
-      propertyPath: clockwize
+      propertyPath: clockwise
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
@@ -3536,7 +3536,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
         type: 3}
-      propertyPath: clockwize
+      propertyPath: clockwise
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
@@ -4212,7 +4212,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
         type: 3}
-      propertyPath: clockwize
+      propertyPath: clockwise
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
@@ -22485,7 +22485,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
         type: 3}
-      propertyPath: clockwize
+      propertyPath: clockwise
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
@@ -24909,7 +24909,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageNum: 1
   scoreInStage: 0
-  respownNum: 0
+  respawnNum: 0
   life: 0
   HP: 0
   CP: 0
@@ -26402,7 +26402,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
         type: 3}
-      propertyPath: clockwize
+      propertyPath: clockwise
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
@@ -26553,7 +26553,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
         type: 3}
-      propertyPath: clockwize
+      propertyPath: clockwise
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
@@ -26710,7 +26710,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
         type: 3}
-      propertyPath: clockwize
+      propertyPath: clockwise
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
@@ -32596,7 +32596,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
         type: 3}
-      propertyPath: clockwize
+      propertyPath: clockwise
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
@@ -32753,7 +32753,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
         type: 3}
-      propertyPath: clockwize
+      propertyPath: clockwise
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
@@ -37856,7 +37856,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,
         type: 3}
-      propertyPath: clockwize
+      propertyPath: clockwise
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2779194765267441579, guid: 95d14a37687c834459f7e1c765ee768e,

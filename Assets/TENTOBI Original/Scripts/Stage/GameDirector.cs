@@ -51,7 +51,7 @@ public class GameDirector : MonoBehaviour
 	/// <summary>
 	/// リスポーン地点番号
 	/// </summary>
-	public int respownNum;
+	public int respawnNum;
 	[Header("ライフ(残機)")]
 	/// <summary>
 	/// ライフ(残機)
@@ -227,7 +227,7 @@ public class GameDirector : MonoBehaviour
 							t = 0.0f;
 							if (!isGameOver)
 							{
-								RespownPlayer();
+								RespawnPlayer();
 								isAnimating = false;
 							}
 							else playerDir.gameObject.SetActive(false);
@@ -302,7 +302,7 @@ public class GameDirector : MonoBehaviour
 	/// </summary>
 	public void InitializeStageParam()
 	{
-		respownNum = 0;
+		respawnNum = 0;
 		scoreInStage = 0;
 		life = life_max;
 		HP = HP_max;
@@ -373,10 +373,10 @@ public class GameDirector : MonoBehaviour
 	///<summary>
 	///残機を1つ減らし、特定のリスポーン地点へ復活
 	///</summary>
-	private void RespownPlayer()
+	private void RespawnPlayer()
 	{
 		HP = HP_max;
-		stage.RespownAndResetObjectsPositions();
+		stage.RespawnAndResetObjectsPositions();
 		playerRend.sharedMaterial.SetColor("_Color", Color.white);
 	}
 	/*

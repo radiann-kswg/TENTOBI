@@ -121,7 +121,7 @@ public class SaveDataSelectDirector : MonoBehaviour
 				{
 					// デフォルトのプレイヤー名を指定して決定ボタンを押す処理を実行
 					SaveLoadFile.instance.savedataName = defaultPlayerName;
-					if (message == "") PlessOKButton();
+					if (message == "") PressOKButton();
 				}
 			}
 			else usingUis.SetActive(false);
@@ -145,7 +145,7 @@ public class SaveDataSelectDirector : MonoBehaviour
 	/// <summary>
 	/// 決定ボタンを押した時の処理です
 	/// </summary>
-	public void PlessOKButton()
+	public void PressOKButton()
 	{
 		if (!wentNextScene)
 		{
@@ -224,7 +224,7 @@ public class SaveDataSelectDirector : MonoBehaviour
 	/// <summary>
 	/// キャンセルボタンを押した時の処理です
 	/// </summary>
-	public void PlessCancelButton()
+	public void PressCancelButton()
 	{
 		if (isActive && !wentNextScene)
 		{

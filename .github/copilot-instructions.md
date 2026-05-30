@@ -106,7 +106,6 @@
 このプロジェクトは「シーン内のオブジェクトを Tag で検索し、必要な Director/Controller を取得して連携する」構成が中心です。
 
 - ステージ中の中核
-
   - `GameDirector` : ステージ状態（`stageNum`, `scoreInStage`, `respownNum`, `life`, `HP`, `CP`）とゲームオーバー/クリア遷移。パラメータ上限（`life_max`, `HP_max`, `CP_max`）もここで管理。
   - `GravityController` : `Input.acceleration` から重力ベクトルを計算し `Rigidbody2D.AddForce` で印加（ポーズ時は速度を退避/復帰）。`rigitbody`（綴り揺れ）フィールドで `Rigidbody2D` を保持。
   - `GroundChecker` / `PlayerDirector` : 接地・ダメージ接触の判定
@@ -191,37 +190,37 @@
 
 新規スクリプトを作成・追記する際は、以下のテーブルを命名の基準としてください。
 
-| 対象 | 規則 | 具体例 |
-|---|---|---|
-| クラス名 | PascalCase | `GameDirector`, `GravityController` |
-| public メソッド | PascalCase（原則） | `SwitchToGameClear()`, `IsGround()` |
-| private メソッド | PascalCase | `CalculateForceAndAngle()`, `CalculateRotateAngle()` |
-| Unity イベント | Unity 規定名 | `Awake()`, `Start()`, `Update()`, `FixedUpdate()` |
-| public フィールド（Inspector 公開） | lowerCamelCase | `stageNum`, `hpBar`, `addPower` |
-| private フィールド | lowerCamelCase | `playerDir`, `isGameOver`, `isPausing` |
-| `[SerializeField]` private フィールド | lowerCamelCase | 既存クラスの慣習に従う |
-| bool フィールド | `isXxx` / `hasXxx` 形式 | `isTutorial`, `isGround`, `isDamaged` |
-| const フィールド | lowerCamelCase | `stageLength`, `rewriteMessage` |
-| 物理計算メソッド | `CalculateXxxAndYyy()` | `CalculateForceAndAngle()`, `CalculateRotateAngle()` |
-| クラス名サフィックス | 役割に応じて選択 | `*Director`, `*Controller`, `*Checker` |
+| 対象                                  | 規則                    | 具体例                                               |
+| ------------------------------------- | ----------------------- | ---------------------------------------------------- |
+| クラス名                              | PascalCase              | `GameDirector`, `GravityController`                  |
+| public メソッド                       | PascalCase（原則）      | `SwitchToGameClear()`, `IsGround()`                  |
+| private メソッド                      | PascalCase              | `CalculateForceAndAngle()`, `CalculateRotateAngle()` |
+| Unity イベント                        | Unity 規定名            | `Awake()`, `Start()`, `Update()`, `FixedUpdate()`    |
+| public フィールド（Inspector 公開）   | lowerCamelCase          | `stageNum`, `hpBar`, `addPower`                      |
+| private フィールド                    | lowerCamelCase          | `playerDir`, `isGameOver`, `isPausing`               |
+| `[SerializeField]` private フィールド | lowerCamelCase          | 既存クラスの慣習に従う                               |
+| bool フィールド                       | `isXxx` / `hasXxx` 形式 | `isTutorial`, `isGround`, `isDamaged`                |
+| const フィールド                      | lowerCamelCase          | `stageLength`, `rewriteMessage`                      |
+| 物理計算メソッド                      | `CalculateXxxAndYyy()`  | `CalculateForceAndAngle()`, `CalculateRotateAngle()` |
+| クラス名サフィックス                  | 役割に応じて選択        | `*Director`, `*Controller`, `*Checker`               |
 
 ### 綴り揺れ・修正状況（重要）
 
 - 既存コードに含まれていた綴り揺れ/誤字の一覧です。**状態**列を確認し、未修正の識別子は依然として既存の綴りを維持してください。
 
-  | 識別子 | 正しい綴り | 種別 | 状態 |
-  |---|---|---|---|
-  | `rigitbody` | `rigidbody` | `private Rigidbody2D` フィールド名（GravityController.cs, WindTile.cs, ObjectController.cs）/ ローカル変数（Hopper.cs） | ✅ 修正済み |
-  | `Calcurate*` | `Calculate` | private メソッド名（`CalculateForceAndAngle`, `CalculateRotateAngle`） | ✅ 修正済み |
-  | `stageRength` | `stageLength` | `private const` フィールド名（SaveLoadFile.cs） | ✅ 修正済み |
-  | `scorePerSatge` | `scorePerStage` | `Savedata` クラスの `public` フィールド名（SaveLoadFile.cs・参照元含む） | ✅ 修正済み |
-  | `clockwize` | `clockwise` | `public` フィールド名（RotatingBar.cs） | ⏳ 未修正（Phase 2：Prefab 値要確認） |
-  | `isTutrial` | `isTutorial` | `StageView` クラスの `public` フィールド名（MainMenuDirector.cs） | ⏳ 未修正（Phase 2：Scene/Prefab 値要確認） |
-  | `Respown*` / `respownNum` | `Respawn` | public フィールド名・メソッド名・Prefab 名 | ⏳ 未修正（Phase 2：Prefab/Scene 要確認） |
-  | `rigitbody`（ObjectControlChecker.cs） | `rigidbody` | `public Rigidbody2D` フィールド名（Inspector 参照あり） | ⏳ 未修正（Phase 2：Prefab 値要確認） |
-  | `TestSatge` | `TestStage` | シーン名（`Scenes/TestSatge.unity`） | ⏳ 未修正（Phase 4：Unity Editor 操作が必要） |
-  | `SaveDataSelecter` | `SaveDataSelector` | タグ文字列・クラス名（TitleDirector.cs 参照） | ⏳ 未修正（Phase 4：TagManager 含む） |
-  | `Pless*` | `Press` | ギミック Prefab 名等 | ⏳ 未修正（Phase 4：Prefab 名変更が必要） |
+  | 識別子                                 | 正しい綴り         | 種別                                                                                                                    | 状態                                                  |
+  | -------------------------------------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+  | `rigitbody`                            | `rigidbody`        | `private Rigidbody2D` フィールド名（GravityController.cs, WindTile.cs, ObjectController.cs）/ ローカル変数（Hopper.cs） | ✅ 修正済み                                           |
+  | `Calcurate*`                           | `Calculate`        | private メソッド名（`CalculateForceAndAngle`, `CalculateRotateAngle`）                                                  | ✅ 修正済み                                           |
+  | `stageRength`                          | `stageLength`      | `private const` フィールド名（SaveLoadFile.cs）                                                                         | ✅ 修正済み                                           |
+  | `scorePerSatge`                        | `scorePerStage`    | `Savedata` クラスの `public` フィールド名（SaveLoadFile.cs・参照元含む）                                                | ✅ 修正済み                                           |
+  | `clockwize`                            | `clockwise`        | `public` フィールド名（RotatingBar.cs） / YAML `propertyPath`（各ステージシーン）                                       | ✅ 修正済み                                           |
+  | `isTutrial`                            | `isTutorial`       | `StageView` クラスの `public` フィールド名（MainMenuDirector.cs）/ MainMenuDirector.prefab 値                           | ✅ 修正済み                                           |
+  | `Respown*` / `respownNum`              | `Respawn`          | public フィールド名・メソッド名（GameDirector, StagePointDirector, RespawnPoint.cs）/ Prefab 名・各シーンの YAML 値     | ✅ 修正済み                                           |
+  | `rigitbody`（ObjectControlChecker.cs） | `rigidbody`        | `public Rigidbody2D` フィールド名（Inspector 参照あり）                                                                 | ✅ 修正済み                                           |
+  | `TestSatge`                            | `TestStage`        | LightingSettings ファイル名（`TestSatgeSettings.lighting`）・内部 `m_Name`                                              | ✅ 修正済み（シーンファイル名は元々 TestStage.unity） |
+  | `SaveDataSelecter`                     | `SaveDataSelector` | タグ文字列（TagManager.asset, Title.unity）・ TitleDirector.cs 内文字列リテラル                                         | ✅ 修正済み                                           |
+  | `Pless*`                               | `Press`            | メソッド名（TitleDirector.cs, SaveDataSelectDirector.cs）/ Title.unity `m_MethodName`                                   | ✅ 修正済み                                           |
 
 - **✅ 修正済みの識別子**は新規コードで正しい綴りを使用してください。
 - **⏳ 未修正の識別子**はシーン参照・Prefab・他スクリプト呼び出しと結びついているため、**ユーザー確認なしにリネーム/修正しない**でください。

@@ -1,4 +1,4 @@
-%YAML 1.1
+﻿%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!29 &1
 OcclusionCullingSettings:
@@ -134,8 +134,8 @@ GameObject:
   - component: {fileID: 52110724}
   - component: {fileID: 52110728}
   m_Layer: 5
-  m_Name: Canvas And SaveDataSelecter
-  m_TagString: SaveDataSelecter
+  m_Name: Canvas And SaveDataSelector
+  m_TagString: SaveDataSelector
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -803,7 +803,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 98931716}
         m_TargetAssemblyTypeName: 
-        m_MethodName: PlessNewGameButton
+        m_MethodName: PressNewGameButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1350,7 +1350,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 98931716}
         m_TargetAssemblyTypeName: 
-        m_MethodName: PlessExitButton
+        m_MethodName: PressExitButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1483,7 +1483,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 52110728}
         m_TargetAssemblyTypeName: 
-        m_MethodName: PlessOKButton
+        m_MethodName: PressOKButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1915,7 +1915,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 98931716}
         m_TargetAssemblyTypeName: 
-        m_MethodName: PlessContinueButton
+        m_MethodName: PressContinueButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2143,7 +2143,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 52110728}
         m_TargetAssemblyTypeName: 
-        m_MethodName: PlessCancelButton
+        m_MethodName: PressCancelButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

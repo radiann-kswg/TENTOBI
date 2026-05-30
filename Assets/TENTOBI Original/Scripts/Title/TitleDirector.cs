@@ -61,7 +61,7 @@ public class TitleDirector : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		dataSelect = GameObject.FindGameObjectWithTag("SaveDataSelecter").GetComponent<SaveDataSelectDirector>();
+		dataSelect = GameObject.FindGameObjectWithTag("SaveDataSelector").GetComponent<SaveDataSelectDirector>();
 		transition = GameObject.FindGameObjectWithTag("TransitionDirector").GetComponent<TransitionDirector>();
 
 		versionText.text = "version: " + Application.version;
@@ -107,7 +107,7 @@ public class TitleDirector : MonoBehaviour
 	/// <summary>
 	/// ニューゲームボタンを押した時の処理です
 	/// </summary>
-	public void PlessNewGameButton()
+	public void PressNewGameButton()
 	{
 		if (!isPlessed && transition.IsFadeInComplete())
 		{
@@ -124,7 +124,7 @@ public class TitleDirector : MonoBehaviour
 	/// <summary>
 	/// コンティニューボタンを押した時の処理です
 	/// </summary>
-	public void PlessContinueButton()
+	public void PressContinueButton()
 	{
 		if (!isPlessed && transition.IsFadeInComplete())
 		{
@@ -141,7 +141,7 @@ public class TitleDirector : MonoBehaviour
 	/// <summary>
 	/// 終了ボタンを押した時の処理です
 	/// </summary>
-	public void PlessExitButton()
+	public void PressExitButton()
 	{
 		if (!isPlessed && transition.IsFadeInComplete())
 		{
@@ -165,6 +165,6 @@ public class TitleDirector : MonoBehaviour
 	{
 		int i, n = buttons.Length;
 		if (n > 0) for (i = 0; i < n; ++i)
-				buttons[i].SetActive(isActive);
+			buttons[i].SetActive(isActive);
 	}
 }
