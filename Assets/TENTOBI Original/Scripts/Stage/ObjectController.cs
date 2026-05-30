@@ -18,7 +18,7 @@ public class ObjectController : MonoBehaviour, IPointerClickHandler
     /// </summary>
     private UIDirector ui;
 
-    private Rigidbody2D rigitbody;
+    private Rigidbody2D rigidbody;
 
     /// <summary>
     /// 操作速度
@@ -61,7 +61,7 @@ public class ObjectController : MonoBehaviour, IPointerClickHandler
     void Start()
     {
         game = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameDirector>();
-        rigitbody = this.gameObject.GetComponent<Rigidbody2D>();
+        rigidbody = this.gameObject.GetComponent<Rigidbody2D>();
         ui = GameObject.FindGameObjectWithTag("UI").GetComponent<UIDirector>();
 
         isSelected = false;
@@ -110,15 +110,15 @@ public class ObjectController : MonoBehaviour, IPointerClickHandler
                         if (diff.y > collisionThreshold && input.y > 0.0f) input.y = 0.0f;
                         else if (diff.y < -collisionThreshold && input.y < 0.0f) input.y = 0.0f;
                     }
-                    rigitbody.linearVelocity = input;
+                    rigidbody.linearVelocity = input;
                     ctrlCost = input.magnitude / controlSpeed * costCPPerInput;
                 }
                 else
                 {
-                    rigitbody.linearVelocity = Vector2.zero;
+                    rigidbody.linearVelocity = Vector2.zero;
                     ctrlCost = 0.0f;
                 }
-                rigitbody.angularVelocity = 0.0f;
+                rigidbody.angularVelocity = 0.0f;
             }
         }
     }

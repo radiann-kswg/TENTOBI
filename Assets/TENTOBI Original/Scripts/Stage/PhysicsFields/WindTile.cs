@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WindTile : MonoBehaviour
 {
-    private Rigidbody2D rigitbody;
+    private Rigidbody2D rigidbody;
 
     [Header("風力")]
     /// <summary>
@@ -30,7 +30,7 @@ public class WindTile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rigitbody = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
+        rigidbody = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -44,15 +44,15 @@ public class WindTile : MonoBehaviour
         // このタイルマップに接している場合
         if (IsInWind())
         {
-            // 風力を印可（風力(Vector2)はCalcurateForceAndAngle関数で計算される）
-            rigitbody.AddForce(CalcurateForceAndAngle(), ForceMode2D.Force);
+            // 風力を印可（風力(Vector2)はCalculateForceAndAngle関数で計算される）
+            rigidbody.AddForce(CalculateForceAndAngle(), ForceMode2D.Force);
 
             Debug.Log("風の影響で加速(Z回転角:" + zAngle.ToString() + "度, 加速度:+" + addPower.ToString() + ")しています");
         }
     }
 
     #region 風力計算
-    private Vector2 CalcurateForceAndAngle()
+    private Vector2 CalculateForceAndAngle()
     {
         return addPower * new Vector2(-Mathf.Sin(Mathf.Deg2Rad * zAngle), Mathf.Cos(Mathf.Deg2Rad * zAngle));
     }

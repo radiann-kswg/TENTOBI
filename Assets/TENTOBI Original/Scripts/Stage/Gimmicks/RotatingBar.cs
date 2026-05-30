@@ -35,8 +35,8 @@ public class RotatingBar : MonoBehaviour
         // ポーズ中でない場合
         if (!game.ReturnPauseFlag())
         {
-            // 回転処理（1指令ごとの回転量(float)はCalcurateRotateAngle関数で計算される）
-            this.gameObject.transform.Rotate(0.0f, 0.0f, CalcurateRotateAngle());
+            // 回転処理（1指令ごとの回転量(float)はCalculateRotateAngle関数で計算される）
+            this.gameObject.transform.Rotate(0.0f, 0.0f, CalculateRotateAngle());
         }
     }
 
@@ -45,7 +45,7 @@ public class RotatingBar : MonoBehaviour
     /// フレーム単位にし方向設定を反映した回転角を返します
     /// </summary>
     /// <returns>Update関数内でRotate関数からZ軸回転入力をするための引数z</returns>
-    private float CalcurateRotateAngle()
+    private float CalculateRotateAngle()
     {
         float th = angleVelocity * Time.deltaTime;
         if (clockwize) th = -th;

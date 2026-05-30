@@ -161,7 +161,7 @@
   - 力・速度の反映: `FixedUpdate`
 - `Debug.Log` はデバッグ用途に限定し、恒常ログにならないよう配慮してください（必要ならフラグ化や条件付き出力）。
 - スクリプトファイル冒頭の引用 URL コメント: 既存コードには `// 引用URL: https://... (YYYY.MM.DD)` 形式の参考文献コメントが付いているものがあります。新規スクリプトで外部資料を参照した場合は同形式で記載してください。
-- 角度ベースの力計算は `CalcurateForceAndAngle()` という命名で `#region` 内に実装するパターンが多用されています（例：`GravityController`, `Hopper`, `WindTile`）。同様の計算を追加する場合はこの形に寄せてください（`Calcurate` の綴りは既存の誤字に統一）。
+- 角度ベースの力計算は `CalculateForceAndAngle()` という命名で `#region` 内に実装するパターンが多用されています（例：`GravityController`, `Hopper`, `WindTile`）。同様の計算を追加する場合はこの形に寄せてください。回転量計算は `CalculateRotateAngle()` が既存のパターンです（`RotatingBar`）。
 - `SaveLoadFile` のシングルトンは `instance` フィールドと `Awake` での重複チェック + `DontDestroyOnLoad` パターンで実装されています。同様のシングルトンを追加する場合もこの形に合わせてください。
 
 ---
@@ -187,24 +187,45 @@
 - **定数（const）**:
   - `private const float flashT` のように lowerCamelCase の定数が既にあります。新規追加も「そのファイル内の既存スタイル」に寄せてください。
 
-### 綴り揺れ・既存識別子の扱い（重要）
+#### 命名法則テーブル（新規コード記述基準）
 
-- 既存コードには綴り揺れ/誤字が含まれます。以下は確認済みの主要なものです：
+新規スクリプトを作成・追記する際は、以下のテーブルを命名の基準としてください。
 
-  | 識別子 | 正しい綴り | 種別 |
-  |---|---|---|
-  | `Respown*` / `respownNum` | Respawn | フィールド名・メソッド名 |
-  | `rigitbody` | rigidbody | `Rigidbody2D` フィールド名（複数ファイル） |
-  | `Calcurate*` | Calculate | メソッド名（`CalcurateForceAndAngle` 等） |
-  | `TestSatge` | TestStage | シーン名（`Scenes/TestSatge.unity`） |
-  | `stageRength` | stageLength | `const` フィールド名（`SaveLoadFile.cs`） |
-  | `Pless*` | Press | ギミック名（`PressTrap` 等） |
-  | `isTutrial` | isTutorial | bool フィールド名 |
-  | `SaveDataSelecter` | SaveDataSelector | クラス名・タグ名 |
-  | `clockwize` | clockwise | 変数名 |
+| 対象 | 規則 | 具体例 |
+|---|---|---|
+| クラス名 | PascalCase | `GameDirector`, `GravityController` |
+| public メソッド | PascalCase（原則） | `SwitchToGameClear()`, `IsGround()` |
+| private メソッド | PascalCase | `CalculateForceAndAngle()`, `CalculateRotateAngle()` |
+| Unity イベント | Unity 規定名 | `Awake()`, `Start()`, `Update()`, `FixedUpdate()` |
+| public フィールド（Inspector 公開） | lowerCamelCase | `stageNum`, `hpBar`, `addPower` |
+| private フィールド | lowerCamelCase | `playerDir`, `isGameOver`, `isPausing` |
+| `[SerializeField]` private フィールド | lowerCamelCase | 既存クラスの慣習に従う |
+| bool フィールド | `isXxx` / `hasXxx` 形式 | `isTutorial`, `isGround`, `isDamaged` |
+| const フィールド | lowerCamelCase | `stageLength`, `rewriteMessage` |
+| 物理計算メソッド | `CalculateXxxAndYyy()` | `CalculateForceAndAngle()`, `CalculateRotateAngle()` |
+| クラス名サフィックス | 役割に応じて選択 | `*Director`, `*Controller`, `*Checker` |
 
-- これらはシーン参照・Prefab・他スクリプト呼び出し・タグ文字列と結びついている可能性があるため、**ユーザー確認なしにリネーム/修正しない**でください。
-- 新規実装で同じ概念を参照する場合は、まず既存の綴りに合わせる（互換優先）。将来修正する場合は、影響範囲（参照先、Prefab、タグ、シーン）を調査して移行計画を提示してください。
+### 綴り揺れ・修正状況（重要）
+
+- 既存コードに含まれていた綴り揺れ/誤字の一覧です。**状態**列を確認し、未修正の識別子は依然として既存の綴りを維持してください。
+
+  | 識別子 | 正しい綴り | 種別 | 状態 |
+  |---|---|---|---|
+  | `rigitbody` | `rigidbody` | `private Rigidbody2D` フィールド名（GravityController.cs, WindTile.cs, ObjectController.cs）/ ローカル変数（Hopper.cs） | ✅ 修正済み |
+  | `Calcurate*` | `Calculate` | private メソッド名（`CalculateForceAndAngle`, `CalculateRotateAngle`） | ✅ 修正済み |
+  | `stageRength` | `stageLength` | `private const` フィールド名（SaveLoadFile.cs） | ✅ 修正済み |
+  | `scorePerSatge` | `scorePerStage` | `Savedata` クラスの `public` フィールド名（SaveLoadFile.cs・参照元含む） | ✅ 修正済み |
+  | `clockwize` | `clockwise` | `public` フィールド名（RotatingBar.cs） | ⏳ 未修正（Phase 2：Prefab 値要確認） |
+  | `isTutrial` | `isTutorial` | `StageView` クラスの `public` フィールド名（MainMenuDirector.cs） | ⏳ 未修正（Phase 2：Scene/Prefab 値要確認） |
+  | `Respown*` / `respownNum` | `Respawn` | public フィールド名・メソッド名・Prefab 名 | ⏳ 未修正（Phase 2：Prefab/Scene 要確認） |
+  | `rigitbody`（ObjectControlChecker.cs） | `rigidbody` | `public Rigidbody2D` フィールド名（Inspector 参照あり） | ⏳ 未修正（Phase 2：Prefab 値要確認） |
+  | `TestSatge` | `TestStage` | シーン名（`Scenes/TestSatge.unity`） | ⏳ 未修正（Phase 4：Unity Editor 操作が必要） |
+  | `SaveDataSelecter` | `SaveDataSelector` | タグ文字列・クラス名（TitleDirector.cs 参照） | ⏳ 未修正（Phase 4：TagManager 含む） |
+  | `Pless*` | `Press` | ギミック Prefab 名等 | ⏳ 未修正（Phase 4：Prefab 名変更が必要） |
+
+- **✅ 修正済みの識別子**は新規コードで正しい綴りを使用してください。
+- **⏳ 未修正の識別子**はシーン参照・Prefab・他スクリプト呼び出しと結びついているため、**ユーザー確認なしにリネーム/修正しない**でください。
+- 将来修正する場合は、影響範囲（参照先、Prefab、タグ、シーン）を調査して移行計画を提示してください。
 
 ### コーディング文法・記述スタイル
 

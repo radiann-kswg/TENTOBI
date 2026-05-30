@@ -69,7 +69,7 @@ public class SaveLoadFile : MonoBehaviour
     /// ステージ総数です(新規セーブデータの作成に用いるのでむやみに変更しないこと)
     /// 今後のステージ実装を見越し多めに取っています(0番目はカウントしないので最大255ステージ)
     /// </summary>
-    private const int stageRength = 256;
+    private const int stageLength = 256;
     
     private void Start()
     {
@@ -96,7 +96,7 @@ public class SaveLoadFile : MonoBehaviour
         /// ※↑ステージ番号0はテスト用ステージに使用
         /// (ステージ番号の指定を行う必要がない & ステージクリア進捗0はステージをすべて攻略していない時として扱う ため)
         /// </summary>
-        public int[] scorePerSatge;
+        public int[] scorePerStage;
     }
 
     /// <summary>
@@ -106,7 +106,7 @@ public class SaveLoadFile : MonoBehaviour
     {
         instance.savedata.stageProgressNum = 0;
         instance.savedata.gottenScore = 0;
-        instance.savedata.scorePerSatge = new int[stageRength];
+        instance.savedata.scorePerStage = new int[stageLength];
 
         instance.savedataName = "";
     }
@@ -126,7 +126,7 @@ public class SaveLoadFile : MonoBehaviour
         int result = 0;
         for (int i = 1; i <= stage.stageNum; ++i)
         {
-            result += instance.savedata.scorePerSatge[i];
+            result += instance.savedata.scorePerStage[i];
         }
         if (result > instance.savedata.gottenScore)
         {

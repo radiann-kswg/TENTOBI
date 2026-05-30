@@ -14,7 +14,7 @@ public class GravityController : MonoBehaviour
 	/// </summary>
 	private GameDirector game;
 
-	private Rigidbody2D rigitbody;
+	private Rigidbody2D rigidbody;
 	#endregion
 
 	#region 重力計算用変数
@@ -66,7 +66,7 @@ public class GravityController : MonoBehaviour
 	void Start()
 	{
 		game = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameDirector>();
-		rigitbody = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
+		rigidbody = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
 		angle = angularVelocity = 0.0f; velocity = Vector2.zero;
 
 		isPausing = false;
@@ -87,22 +87,22 @@ public class GravityController : MonoBehaviour
 			if (isPausing)
 			{
 				// 時間の進行を再開する（＝別変数で確保された速度をこのオブジェクトの速度に再付加する）
-				rigitbody.linearVelocity = this.velocity;
-				rigitbody.angularVelocity = this.angularVelocity;
+				rigidbody.linearVelocity = this.velocity;
+				rigidbody.angularVelocity = this.angularVelocity;
 
 				isPausing = false;
 			}
-			// 重力を印可（重力(Vector2)はCalcurateForceAndAngle関数で計算される）
-			rigitbody.AddForce(CalcurateForceAndAngle(), ForceMode2D.Force);
+			// 重力を印可（重力(Vector2)はCalculateForceAndAngle関数で計算される）
+			rigidbody.AddForce(CalculateForceAndAngle(), ForceMode2D.Force);
 		}
 		// ポーズを開始した場合
 		else if (!isPausing)
 		{
 			// いったん時間を止める（＝このオブジェクトの速度を別変数で確保し0にする）
-			this.velocity = rigitbody.linearVelocity;
-			this.angularVelocity = rigitbody.angularVelocity;
-			rigitbody.linearVelocity = Vector2.zero;
-			rigitbody.angularVelocity = 0.0f;
+			this.velocity = rigidbody.linearVelocity;
+			this.angularVelocity = rigidbody.angularVelocity;
+			rigidbody.linearVelocity = Vector2.zero;
+			rigidbody.angularVelocity = 0.0f;
 
 			isPausing = true;
 		}
@@ -113,7 +113,7 @@ public class GravityController : MonoBehaviour
 	/// 重力方向を更新し、重力と抵抗の計算結果から最終的に印加する力を返します
 	/// </summary>
 	/// <returns>最終的に印加する力</returns>
-	private Vector2 CalcurateForceAndAngle()
+	private Vector2 CalculateForceAndAngle()
 	{
 		Vector3 acc = Input.acceleration;
 		// 正規化
@@ -128,7 +128,7 @@ public class GravityController : MonoBehaviour
 		Vector2 addGravity = dir * gravity;
 		// 重力ベクトルに垂直な単位ベクトルと速度の単位ベクトルから抵抗ベクトルを算出
 		Vector2 addDrag = new Vector2(-dir.y, dir.x).normalized; // dirに直交するベクトル
-		float dot = Vector2.Dot(addDrag, rigitbody.linearVelocity); // 内積で印加方向と印加率を計算
+		float dot = Vector2.Dot(addDrag, rigidbody.linearVelocity); // 内積で印加方向と印加率を計算
 		addDrag *= dot * drag;
 		// 重力と抵抗を合算（この際ベクトルdirは印加用変数として再利用）
 		dir = addGravity - addDrag;

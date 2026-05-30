@@ -387,10 +387,10 @@ public class GameDirector : MonoBehaviour
     {
         // そのステージで以前獲得したスコアより多くのスコアを得た場合は更新
         // ※テスト用ステージ番号は0なので、ステージ番号が0の場合は更新しません
-        int gotten = scoreInStage - SaveLoadFile.instance.savedata.scorePerSatge[stageNum];
+        int gotten = scoreInStage - SaveLoadFile.instance.savedata.scorePerStage[stageNum];
         if (gotten > 0 && stageNum > 0)
         {
-            SaveLoadFile.instance.savedata.scorePerSatge[stageNum] = scoreInStage;
+            SaveLoadFile.instance.savedata.scorePerStage[stageNum] = scoreInStage;
             SaveLoadFile.instance.savedata.gottenScore += gotten;
         }
     }
@@ -403,7 +403,7 @@ public class GameDirector : MonoBehaviour
 	{
 		int progress = SaveLoadFile.instance.savedata.stageProgressNum;
 		var stageNumProgress = MainMenuDirector.main.stageViewList[progress];
-		int oldScorePerStage = SaveLoadFile.instance.savedata.scorePerSatge[stageNum];
+		int oldScorePerStage = SaveLoadFile.instance.savedata.scorePerStage[stageNum];
 		// ステージ進捗を更新した場合
 		if (stageNumProgress.stageNum <= stageNum)
 		{
@@ -418,7 +418,7 @@ public class GameDirector : MonoBehaviour
 			// ハイスコアを更新（チュートリアルでない場合）
 			if (!isTutorial)
 			{
-				SaveLoadFile.instance.savedata.scorePerSatge[stageNum] = scoreInStage;
+				SaveLoadFile.instance.savedata.scorePerStage[stageNum] = scoreInStage;
 				SaveLoadFile.instance.UpdateGottenScore();
 			}
 			// セーブデータを保存
@@ -428,7 +428,7 @@ public class GameDirector : MonoBehaviour
 		else if (!isTutorial && scoreInStage > oldScorePerStage)
 		{
 			// ハイスコアのみ更新
-			SaveLoadFile.instance.savedata.scorePerSatge[stageNum] = scoreInStage;
+			SaveLoadFile.instance.savedata.scorePerStage[stageNum] = scoreInStage;
 			SaveLoadFile.instance.UpdateGottenScore();
 			SaveLoadFile.instance.SaveDataToFile();
 		}

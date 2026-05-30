@@ -120,7 +120,7 @@ public class StageButtonDirector : MonoBehaviour
 				if (thisStageViewID == SaveLoadFile.instance.savedata.stageProgressNum) // 未攻略（=ステージ攻略範囲内1面先）の場合
 					stageScoreText.text = "Next >>";
 				else
-					stageScoreText.text = "HighScore: " + SaveLoadFile.instance.savedata.scorePerSatge[thisStage.stageNum].ToString("D4");
+					stageScoreText.text = "HighScore: " + SaveLoadFile.instance.savedata.scorePerStage[thisStage.stageNum].ToString("D4");
 			}
 			else
 			{
