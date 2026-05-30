@@ -423,9 +423,11 @@ public class GameDirector : MonoBehaviour
 			}
 			// セーブデータを保存
 			SaveLoadFile.instance.SaveDataToFile();
+
+			return;
 		}
 		// ステージ進捗は更新していないがチュートリアルではなくかつステージのハイスコアを更新した場合
-		else if (!isTutorial && scoreInStage > oldScorePerStage)
+		if (!isTutorial && scoreInStage > oldScorePerStage)
 		{
 			// ハイスコアのみ更新
 			SaveLoadFile.instance.savedata.scorePerStage[stageNum] = scoreInStage;

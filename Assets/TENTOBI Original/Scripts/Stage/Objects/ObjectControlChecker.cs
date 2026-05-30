@@ -32,7 +32,7 @@ public class ObjectControlChecker : MonoBehaviour
 	private bool isTriggerEnter, isTriggerStay, isTriggerExit;
 	#endregion
 
-	public Rigidbody2D rigidbody;
+	public Rigidbody2D rb;
 
 
 	// Start is called before the first frame update
@@ -47,18 +47,16 @@ public class ObjectControlChecker : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (isSelected)
-		{
-			if (game.IsControlling())
-			{
+		if (!isSelected) return;
 
-			}
-			else
-			{
-				isSelected = false;
-				ui.DeactivateController();
-			}
+		if (game.IsControlling())
+		{
+			// ※何らかの操作エフェクト
+
+			return;
 		}
+		isSelected = false;
+		ui.DeactivateController();
 	}
 
 	/// <summary>
